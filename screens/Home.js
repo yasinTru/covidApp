@@ -2,6 +2,23 @@ import React from "react";
 import { StyleSheet, Text, TextInput, View } from "react-native";
 
 const Home = () => {
+  const [listAllCountries, setListAllCountriess] = useState({});
+  const [listCountries, setListCountries] = useState([]);
+  const [listFilterCountries, setListFilterCountries] = useState([]);
+
+  useEffect(() => {
+    api.get("countries").then((response) => {
+      setListCountries(response.data);
+      setListFilterCountries(response.data);
+    });
+
+    api.get("all").then((response) => {
+      setListAllCountriess(response.data);
+    });
+
+    setSearch("");
+  }, []);
+
   return (
     <View style={styles.container}>
       <View style={styles.searchBar}>
