@@ -2,6 +2,32 @@ import React from "react";
 import { StyleSheet, Text, TextInput, View } from "react-native";
 
 const Home = () => {
+  const [listAllCountries, setListAllCountriess] = useState({});
+  const [listCountries, setListCountries] = useState([]);
+  const [listFilterCountries, setListFilterCountries] = useState([]);
+  const [search, setSearch] = useState("");
+
+  useEffect(() => {
+    api.get("countries").then((response) => {
+      setListCountries(response.data);
+      setListFilterCountries(response.data);
+    });
+
+    api.get("all").then((response) => {
+      setListAllCountriess(response.data);
+    });
+
+    setSearch("");
+  }, []);
+
+  const handleFilterCountry = (text) => {
+    const filtered = listCountries.filter((item) =>
+      item.country.toLowerCase().includes(text.toLowerCase())
+    );
+    setSearch(text);
+    setListFilterCountries(filtered);
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.searchBar}>
@@ -9,6 +35,8 @@ const Home = () => {
           style={styles.search}
           placeholder="Bir ülke giriniz"
           placeholderTextColor="gray"
+          onChangeText={(text) => handleFilterCountry(text)}
+          defaultValue={search}
         />
       </View>
     </View>
