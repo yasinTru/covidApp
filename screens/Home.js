@@ -5,6 +5,7 @@ const Home = () => {
   const [listAllCountries, setListAllCountriess] = useState({});
   const [listCountries, setListCountries] = useState([]);
   const [listFilterCountries, setListFilterCountries] = useState([]);
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
     api.get("countries").then((response) => {
@@ -19,6 +20,14 @@ const Home = () => {
     setSearch("");
   }, []);
 
+  const handleFilterCountry = (text) => {
+    const filtered = listCountries.filter((item) =>
+      item.country.toLowerCase().includes(text.toLowerCase())
+    );
+    setSearch(text);
+    setListFilterCountries(filtered);
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.searchBar}>
@@ -26,6 +35,8 @@ const Home = () => {
           style={styles.search}
           placeholder="Bir ülke giriniz"
           placeholderTextColor="gray"
+          onChangeText={(text) => handleFilterCountry(text)}
+          defaultValue={search}
         />
       </View>
     </View>
