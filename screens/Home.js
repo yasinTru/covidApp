@@ -10,12 +10,16 @@ import {
 } from "react-native";
 import api from "../services/Api";
 import formatNumber from "../utils/formatNumber";
+import { useNavigation } from "@react-navigation/native";
+
 
 const Home = () => {
   const [listAllCountries, setListAllCountriess] = useState({});
   const [listCountries, setListCountries] = useState([]);
   const [listFilterCountries, setListFilterCountries] = useState([]);
   const [search, setSearch] = useState("");
+  const navigation = useNavigation();
+
 
   useEffect(() => {
     api.get("countries").then((response) => {
@@ -36,6 +40,15 @@ const Home = () => {
     );
     setSearch(text);
     setListFilterCountries(filtered);
+  };
+
+  const temizle = () => {
+    setSearch("");
+    setListFilterCountries(listCountries);
+  };
+  const handleNavigateToCountry = (country) => {
+    temizle();
+    navigation.navigate("Detail", { country });
   };
 
   const listCases = (type, total, today) => {
@@ -107,7 +120,8 @@ const Home = () => {
             data={listFilterCountries}
             keyboardShouldPersistTaps={"handled"}
             renderItem={({ item }) => (
-              <TouchableOpacity key={`country_${item._id}`}>
+              <TouchableOpacity key={`country_${item._id}`} onPress={() => handleNavigateToCountry(item.country)}
+              >
                 <View style={styles.card}>
                   <View style={styles.cardTitle}>
                     <Image
