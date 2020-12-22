@@ -1,12 +1,12 @@
 import React from "react";
 import { StyleSheet, StatusBar } from "react-native";
-import Home from "./screens/Home";
+import Routing from "./navigations/routing";
 
 export default function App() {
   return (
     <>
       <StatusBar style="auto" />
-      <Home />
+      <Routing />
     </>
   );
 }

@@ -12,14 +12,12 @@ import api from "../services/Api";
 import formatNumber from "../utils/formatNumber";
 import { useNavigation } from "@react-navigation/native";
 
-
 const Home = () => {
   const [listAllCountries, setListAllCountriess] = useState({});
   const [listCountries, setListCountries] = useState([]);
   const [listFilterCountries, setListFilterCountries] = useState([]);
   const [search, setSearch] = useState("");
   const navigation = useNavigation();
-
 
   useEffect(() => {
     api.get("countries").then((response) => {
@@ -52,24 +50,30 @@ const Home = () => {
   };
 
   const listCases = (type, total, today) => {
-    let title, subtitle;
+    let title, subtitle, icon;
     switch (type) {
       case "cases":
         title = "textCases";
         subtitle = "textNewCases";
+        icon = require("../assets/infected.png");
         break;
       case "death":
         title = "textDeath";
         subtitle = "textNewDeath";
+        icon = require("../assets/tombstone.png");
         break;
       default:
         title = "textHealthy";
         subtitle = "textNewHealthy";
+        icon = require("../assets/patient.png");
         break;
     }
 
     return (
       <View style={styles.cardCol}>
+        <View>
+          <Image style={{ width: 24, height: 24 }} source={icon} />
+        </View>
         <View style={styles.cardColItem}>
           <Text style={styles[title]}>{formatNumber(total)}</Text>
           <Text style={styles[subtitle]}>(+{formatNumber(today)})</Text>
@@ -92,9 +96,17 @@ const Home = () => {
       {!!listFilterCountries.length ? (
         <>
           {!!Object.keys(listAllCountries).length && !search && (
-            <View style={styles.card}>
+            <View
+              style={[
+                styles.card,
+                {
+                  backgroundColor: "white",
+                  borderRadius: 10,
+                },
+              ]}
+            >
               <View style={styles.cardTitle}>
-                <Text style={styles.cardTitleText}>Global</Text>
+                <Text style={styles.cardTitleText}>Dünya</Text>
               </View>
               <View style={styles.cardBody}>
                 {listCases(
@@ -120,7 +132,9 @@ const Home = () => {
             data={listFilterCountries}
             keyboardShouldPersistTaps={"handled"}
             renderItem={({ item }) => (
-              <TouchableOpacity key={`country_${item._id}`} onPress={() => handleNavigateToCountry(item.country)}
+              <TouchableOpacity
+                key={`country_${item._id}`}
+                onPress={() => handleNavigateToCountry(item.country)}
               >
                 <View style={styles.card}>
                   <View style={styles.cardTitle}>
@@ -153,9 +167,9 @@ export default Home;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: 40,
     padding: 5,
     flexDirection: "column",
+    backgroundColor: "#d7d7d8",
   },
   searchBar: {
     margin: 5,
@@ -163,7 +177,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: "#dcdce6",
+    backgroundColor: "white",
     marginBottom: 20,
   },
   search: {
