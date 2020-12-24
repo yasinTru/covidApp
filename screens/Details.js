@@ -53,11 +53,15 @@ const Details = () => {
           </View>
           <ScrollView style={styles.countryDetail}>
             <View style={styles.detailRow}>
-              <Text>Ülke Nüfusu: {formatNumber(country.population)}</Text>
+              <Text style={styles.text}>
+                Ülke Nüfusu: {formatNumber(country.population)}
+              </Text>
             </View>
             <View style={styles.detailRow}>
               <View style={{ flex: 0.7 }}>
-                <Text>Toplam Vakalar: {formatNumber(country.cases)}</Text>
+                <Text style={styles.text}>
+                  Toplam Vakalar: {formatNumber(country.cases)}
+                </Text>
               </View>
               <View
                 style={{
@@ -67,6 +71,7 @@ const Details = () => {
                   alignItems: "center",
                   justifyContent: "center",
                   padding: 5,
+                  borderRadius: 8,
                 }}
               >
                 <Text style={styles.text}>
@@ -76,7 +81,9 @@ const Details = () => {
             </View>
             <View style={styles.detailRow}>
               <View style={{ flex: 0.7 }}>
-                <Text>Toplam Ölümler: {formatNumber(country.deaths)}</Text>
+                <Text style={styles.text}>
+                  Toplam Ölümler: {formatNumber(country.deaths)}
+                </Text>
               </View>
               <View
                 style={{
@@ -86,6 +93,7 @@ const Details = () => {
                   alignItems: "center",
                   justifyContent: "center",
                   padding: 5,
+                  borderRadius: 8,
                 }}
               >
                 <Text style={styles.text}>
@@ -95,7 +103,7 @@ const Details = () => {
             </View>
             <View style={styles.detailRow}>
               <View style={{ flex: 0.7 }}>
-                <Text>
+                <Text style={styles.text}>
                   Toplam İyileşenler: {formatNumber(country.recovered)}
                 </Text>
               </View>
@@ -107,6 +115,7 @@ const Details = () => {
                   alignItems: "center",
                   justifyContent: "center",
                   padding: 5,
+                  borderRadius: 8,
                 }}
               >
                 <Text style={styles.text}>
@@ -115,10 +124,12 @@ const Details = () => {
               </View>
             </View>
             <View style={styles.detailRow}>
-              <Text>Aktif Hasta Sayısı: {formatNumber(country.active)}</Text>
+              <Text style={styles.text}>
+                Aktif Hasta Sayısı: {formatNumber(country.active)}
+              </Text>
             </View>
             <View style={styles.detailRow}>
-              <Text>
+              <Text style={styles.text}>
                 Durumu Kritik Hasta Sayısı: {formatNumber(country.critical)}
               </Text>
             </View>
@@ -173,17 +184,25 @@ const Details = () => {
               </View>
             </View>
             <View>
-              <View style={{ marginVertical: 10 }}>
-                <Text style={{ textAlign: "center" }}>
-                  Son 5 Gündeki Toplamlar
-                </Text>
+              <View
+                style={{
+                  alignItems: "center",
+                  justifyContent: "center",
+                  marginHorizontal: 10,
+                  marginTop: 10,
+                  backgroundColor: "#98acf8",
+                  padding: 10,
+                  borderRadius: 25,
+                }}
+              >
+                <Text style={styles.text}>Son 5 Gündeki Toplamlar</Text>
               </View>
               {historical && (
                 <View style={{ margin: 10 }}>
                   <View
                     style={{
                       marginHorizontal: 5,
-                      backgroundColor: "orange",
+                      backgroundColor: "#d7d7d8",
                       padding: 10,
                       alignItems: "center",
                       justifyContent: "center",
@@ -212,7 +231,7 @@ const Details = () => {
                   <View
                     style={{
                       marginHorizontal: 5,
-                      backgroundColor: "red",
+                      backgroundColor: "#d7d7d8",
                       alignItems: "center",
                       justifyContent: "center",
                       padding: 10,
@@ -241,7 +260,7 @@ const Details = () => {
                   <View
                     style={{
                       marginHorizontal: 5,
-                      backgroundColor: "green",
+                      backgroundColor: "#d7d7d8",
                       alignItems: "center",
                       justifyContent: "center",
                       padding: 10,
@@ -322,6 +341,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  text: { color: "white", fontWeight: "bold" },
-  textDate: { color: "white", textAlign: "center", fontSize: 18 },
+  text: { color: "black", fontWeight: "bold" },
+  textDate: { color: "black", textAlign: "center", fontSize: 18 },
 });
